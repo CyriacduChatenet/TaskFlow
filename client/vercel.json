@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "project": "taskflow-client",
   "builds": [
     {
       "src": "vite.config.js",
@@ -15,6 +14,5 @@
       "src": "/(.*)",
       "dest": "/index.html"
     }
-  ],
-  "alias": ["taskflow-client.vercel.app"]
+  ]
 }

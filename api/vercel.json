@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "project": "taskflow-api",
   "builds": [
     {
       "src": "src/main.ts",
@@ -23,6 +22,5 @@
       "dest": "src/main.ts",
       "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
     }
-  ],
-  "alias": ["taskflow-api.vercel.app"]
+  ]
 }

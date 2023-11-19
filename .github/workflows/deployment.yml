@@ -47,12 +47,14 @@ jobs:
         npm install -g pnpm@latest
 
         cd client
-        npx vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
-        npx vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+        npx vercel build --prod --token=${{ secrets.VERCEL_TOKEN_CLIENT }}
+        npx vercel pull --yes --token=${{ secrets.VERCEL_TOKEN_CLIENT }}
+        npx vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN_CLIENT }}
 
         cd ../api
-        npx vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
-        npx vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+        npx vercel build --prod --token=${{ secrets.VERCEL_TOKEN_API }}
+        npx vercel pull --yes --token=${{ secrets.VERCEL_TOKEN_API }}
+        npx vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN_API }}
 
         cd ..
         echo "## Code Coverage\n" >> README.md
