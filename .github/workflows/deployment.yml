@@ -42,8 +42,6 @@ jobs:
         node-version: '18'
 
     - name: Deploy API to Vercel
-      run: |
-        cd api
       uses: amondnet/vercel-action@v20 #deploy
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
@@ -54,8 +52,6 @@ jobs:
           working-directory: ./sub-directory
 
     - name: Deploy Client to Vercel
-      run: |
-        cd ../client
       uses: amondnet/vercel-action@v20 # deploy
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
