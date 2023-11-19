@@ -21,11 +21,11 @@ jobs:
     - name: Install dependencies and test
       run: |
         cd client
-        npm ci
+        npm i
         npm test --coverage
 
         cd ../api
-        npm ci
+        npm i
         npm test --coverage
 
   build_and_deploy:
