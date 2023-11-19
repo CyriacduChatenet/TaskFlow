@@ -1,7 +1,9 @@
 {
   "version": 2,
-  "name": "taskflow-api",
-  "alias": ["taskflow-api.vercel.app"],
+  "name": "TaskFlow-api",
+  "alias": [
+    "taskflow-api.vercel.app"
+  ],
   "builds": [
     {
       "src": "src/main.ts",
