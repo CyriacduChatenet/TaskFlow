@@ -44,6 +44,7 @@ jobs:
     - name: Deploy to Vercel
       run: |
         npm install -g vercel@latest
+        npm install -g pnpm@latest
 
         cd client
         npx vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
