@@ -1,0 +1,21 @@
+name: Check PR's title
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  check-pr-title:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Vérifier l'intitulé de la PR
+      run: |
+        pattern="(feat|fix|test|chore)\([a-zA-Z]+\): .+"
+        if [[ ! "$(echo ${{ github.event.pull_request.title }})" =~ $pattern ]]; then
+          echo "PR title is not valid"
+          echo "Accepted format : feat|fix|test|chore(scope): feature name"
+          exit 1
+        fi
