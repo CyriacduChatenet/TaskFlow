@@ -16,7 +16,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '18'
+        node-version: '18'  # Mise à jour à la version 14
 
     - name: Install dependencies and test
       run: |
@@ -39,24 +39,29 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '18'
+        node-version: '18'  # Mise à jour à la version 14
 
     - name: Deploy API to Vercel
-      uses: amondnet/vercel-action@v20 #deploy
-      with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
-          github-token: ${{ secrets.GITHUB_TOKEN }} # Optional 
-          vercel-args: '--prod' # Optional
-          vercel-org-id: ${{ secrets.ORG_ID}}  # Required
-          vercel-project-id: ${{ secrets.API_PROJECT_ID}} # Required 
-          working-directory: ./sub-directory
+      run: |
+        npm i -g vercel@latest
+        cd api
+        npx vercel --prod
+      env:
+        VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }} # Required
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Optional 
+        VERCEL_ARGS: '--prod' # Optional
+        VERCEL_ORG_ID: ${{ secrets.ORG_ID}}  # Required
+        VERCEL_PROJECT_ID: ${{ secrets.API_PROJECT_ID}} # Required 
+        WORKING_DIRECTORY: ./sub-directory
 
     - name: Deploy Client to Vercel
-      uses: amondnet/vercel-action@v20 # deploy
-      with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
-          github-token: ${{ secrets.GITHUB_TOKEN }} # Optional 
-          vercel-args: '--prod' # Optional
-          vercel-org-id: ${{ secrets.ORG_ID}}  # Required
-          vercel-project-id: ${{ secrets.CLIENT_PROJECT_ID}} # Required 
-          working-directory: ./sub-directory
+      run: |
+        cd ../client
+        npx vercel --prod
+      env:
+        VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }} # Required
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Optional 
+        VERCEL_ARGS: '--prod' # Optional
+        VERCEL_ORG_ID: ${{ secrets.ORG_ID}}  # Required
+        VERCEL_PROJECT_ID: ${{ secrets.CLIENT_PROJECT_ID}} # Required 
+        WORKING_DIRECTORY: ./sub-directory
