@@ -6,7 +6,8 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
+  # Job pour installer les dépendances et tester les applications
+  install_and_test:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,24 +19,38 @@ jobs:
       with:
         node-version: '18'
 
-    - name: Install dependencies and build React app
+    - name: Install dependencies and test
       run: |
+        # Installer et tester l'application React
         cd client
         npm install
-        npm run build
+        npm test
 
-    - name: Install dependencies and build NestJS app
-      run: |
-        cd api
+        # Installer et tester l'application NestJS
+        cd ../api
         npm install
-        npm run build
+        npm test
 
-    - name: Deploy React app to Vercel
+  # Job pour construire et déployer les applications à Vercel
+  build_and_deploy:
+    needs: install_and_test
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+    - name: Deploy to Vercel
       run: |
+        # Déployer l'application React à Vercel
         cd client
         npx vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
 
-    - name: Deploy NestJS app to Vercel
-      run: |
-        cd api
+        # Déployer l'application NestJS à Vercel
+        cd ../api
         npx vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
