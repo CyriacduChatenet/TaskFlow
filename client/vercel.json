@@ -1,9 +1,7 @@
 {
   "version": 2,
-  "name": "TaskFlow-client",
-  "alias": [
-    "taskflow-client.vercel.app"
-  ],
+  "project": "taskflow-client",
+  "domains": ["taskflow-client.vercel.app"],
   "builds": [
     {
       "src": "vite.config.js",
