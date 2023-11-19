@@ -1,27 +1,28 @@
 {
-    "version": 2,
-    "name": "taskflow-api",
-    "builds": [
-      {
-        "src": "src/main.ts",
-        "use": "@vercel/node",
-        "config": {
-          "env": {
-            "NODE_ENV": "production"
-          }
+  "version": 2,
+  "name": "taskflow-api",
+  "alias": ["taskflow-api.vercel.app"],
+  "builds": [
+    {
+      "src": "src/main.ts",
+      "use": "@vercel/node",
+      "config": {
+        "env": {
+          "NODE_ENV": "production"
         }
       }
-    ],
-    "routes": [
-      {
-        "src": "/(.*)",
-        "headers": {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "GET,HEAD,PUT,PATCH,POST,DELETE, OPTIONS",
-          "Access-Control-Allow-Headers": "Authorization, Content-Type"
-        },
-        "dest": "src/main.ts",
-        "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
-      }
-    ]
-  }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET,HEAD,PUT,PATCH,POST,DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "Authorization, Content-Type"
+      },
+      "dest": "src/main.ts",
+      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
+    }
+  ]
+}
