@@ -47,12 +47,10 @@ jobs:
         npm install -g pnpm@latest
 
         cd client
-        npx vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
         npx vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
         npx vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
 
         cd ../api
-        npx vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
         npx vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
         npx vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
 
