@@ -7,6 +7,10 @@
 [![vercel](https://img.shields.io/badge/Vercel-323330?style=for-the-badge&logo=vercel&logoColor=FFF)](https://vercel.com/)
 [![pnpm](https://img.shields.io/badge/PNPM-F69220?style=for-the-badge&logo=pnpm&logoColor=white)](https://pnpm.io/fr/)
 [![Prettier](https://img.shields.io/badge/Prettier-1B2B34?style=for-the-badge&logo=prettier&logoColor=white)](https://prettier.io/)
+
+- [Client](https://taskflow-client.vercel.app/)
+- [API](https://taskflow-api.vercel.app/api/v1)
+
 ## Make file
 - Init docker containers with makefile
 ```bash
