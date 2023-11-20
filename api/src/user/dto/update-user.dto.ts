@@ -9,4 +9,7 @@ export class UpdateUserDto {
 
   @IsString()
   username: string;
+
+  @IsString()
+  roles?: string;
 }
