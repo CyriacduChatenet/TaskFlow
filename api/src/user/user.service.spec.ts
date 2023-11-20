@@ -98,4 +98,58 @@ describe('UserService', () => {
       }),
     ).rejects.toThrow(UnauthorizedException);
   });
+
+  it('should create user', async () => {
+    mockUserRepository.findOneUserByEmail.mockResolvedValue(null);
+    mockUserRepository.createUser.mockResolvedValue('createdUser');
+
+    const createUserDto = {
+      email: 'test@test.com',
+      password: 'root',
+      username: 'test',
+      roles: 'user',
+    };
+
+    expect(await service.create(createUserDto)).toBe('createdUser');
+  });
+
+  it('should throw ConflictException when creating a user with existing email', async () => {
+    mockUserRepository.findOneUserByEmail.mockResolvedValue('existingUser');
+
+    const createUserDto = {
+      email: 'test@test.com',
+      password: 'root',
+      username: 'test',
+      roles: 'user',
+    };
+
+    await expect(service.create(createUserDto)).rejects.toThrowError(
+      UnauthorizedException,
+    );
+  });
+
+  it('should find all users', async () => {
+    mockUserRepository.findAllUsers.mockResolvedValue(['user1', 'user2']);
+
+    expect(await service.findAll()).toEqual(['user1', 'user2']);
+  });
+
+  it('should find user by ID', async () => {
+    mockUserRepository.findOneUserById.mockResolvedValue('userById');
+
+    expect(await service.findOneById('1')).toBe('userById');
+  });
+
+  it('should remove user by ID', async () => {
+    mockUserRepository.findOneUserById.mockResolvedValue({
+      id: 'userToRemoveId',
+      email: 'test@test.com',
+      password: 'root',
+      username: 'test',
+      roles: 'user',
+    });
+    mockUserRepository.deleteUser.mockResolvedValue('removedUser');
+
+    expect(await service.remove('userToRemoveId')).toBe('removedUser');
+  });
 });
