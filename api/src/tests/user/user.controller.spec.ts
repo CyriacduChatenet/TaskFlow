@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { UserController } from './user.controller';
-import { UserService } from './user.service';
-import { UserRepository } from './user.repository';
-import { User } from './entities/user.entity';
+import { UserController } from '../../user/user.controller';
+import { UserService } from '../../user/user.service';
+import { UserRepository } from '../../user/user.repository';
+import { User } from '../../user/entities/user.entity';
 
 describe('UserController', () => {
   let controller: UserController;
