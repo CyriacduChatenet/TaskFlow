@@ -7,16 +7,16 @@ export class User extends Timestamp {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ nullable: false, unique: true, length: 150 })
+  @Column({ nullable: false, unique: true })
   email: string;
 
   @Column({ nullable: false })
   password: string;
 
-  @Column({ nullable: false, length: 150 })
+  @Column({ nullable: false })
   username: string;
 
-  @Column({ nullable: false })
+  @Column({ nullable: false, default: 'user' })
   roles: string;
 
   @Column({ nullable: false, default: false })

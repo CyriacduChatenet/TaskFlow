@@ -9,7 +9,4 @@ export class CreateUserDto {
 
   @IsString()
   username: string;
-
-  @IsString()
-  roles: string;
 }

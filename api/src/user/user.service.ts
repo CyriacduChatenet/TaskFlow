@@ -15,40 +15,41 @@ export class UserService {
 
   async create(createUserDto: CreateUserDto) {
     try {
-      const existingUser = await this.findOneByEmail(createUserDto.email);
+      const user = await this.findOneByEmail(createUserDto.email);
 
-      if (existingUser) {
-        throw new ConflictException('User already exists');
+      if (user) {
+        throw new ConflictException('Email already taken');
       }
 
-      return await this.userRepository.createUser(createUserDto);
-    } catch (error) {
-      throw new UnauthorizedException(error.message);
+      const newUser = await this.userRepository.createUser(createUserDto);
+      return newUser;
+    } catch (err) {
+      throw new UnauthorizedException(err);
     }
   }
 
   async findAll() {
-    return await this.userRepository.findAllUsers();
+    try {
+      return await this.userRepository.findAllUsers();
+    } catch (err) {
+      throw new NotFoundException(err);
+    }
   }
 
   async findOneById(id: string) {
-    const user = await this.userRepository.findOneUserById(id);
-
-    if (!user) {
-      throw new NotFoundException('User not found');
+    try {
+      return await this.userRepository.findOneUserById(id);
+    } catch (err) {
+      throw new NotFoundException(err);
     }
-
-    return user;
   }
 
   async findOneByEmail(email: string) {
-    const user = await this.userRepository.findOneUserByEmail(email);
-
-    if (!user) {
-      throw new NotFoundException('User not found');
+    try {
+      return await this.userRepository.findOneUserByEmail(email);
+    } catch (err) {
+      throw new NotFoundException(err);
     }
-
-    return user;
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
@@ -65,8 +66,8 @@ export class UserService {
       }
 
       return await this.userRepository.updateUser(id, updateUserDto);
-    } catch (error) {
-      throw new UnauthorizedException(error.message);
+    } catch (err) {
+      throw new UnauthorizedException(err);
     }
   }
 
@@ -79,8 +80,8 @@ export class UserService {
       }
 
       return await this.userRepository.deleteUser(id);
-    } catch (error) {
-      throw new UnauthorizedException(error.message);
+    } catch (err) {
+      throw new UnauthorizedException(err);
     }
   }
 }
