@@ -1,9 +1,4 @@
-import {
-  HttpException,
-  HttpStatus,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 
@@ -22,13 +17,15 @@ export class AuthService {
     const user = await this.userService.findOneByEmail(email);
 
     if (!user) {
-      throw new HttpException('User is not found', HttpStatus.NOT_FOUND);
+      throw new UnauthorizedException('Invalid credentials');
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if (user && isMatch) {
+    if (isMatch) {
       const { password, ...result } = user;
       return result;
+    } else {
+      throw new UnauthorizedException('Invalid credentials');
     }
   }
 
@@ -37,7 +34,7 @@ export class AuthService {
       const findUser = await this.userService.findOneByEmail(user.email);
 
       if (!findUser) {
-        throw new HttpException(`User isn't exist`, HttpStatus.NOT_ACCEPTABLE);
+        throw new UnauthorizedException('User not found');
       }
 
       const payload = {
@@ -45,14 +42,12 @@ export class AuthService {
         id: findUser.id,
         roles: findUser.roles,
       };
+
       return {
         accessToken: this.jwtService.sign(payload),
       };
     } catch (err) {
-      throw new UnauthorizedException({
-        message: 'Unauthorized to signin',
-        err,
-      });
+      throw new UnauthorizedException('Unauthorized to signin', err.message);
     }
   }
 
@@ -63,13 +58,10 @@ export class AuthService {
       );
 
       if (userInDB) {
-        throw new HttpException(
-          'User is already exist',
-          HttpStatus.NOT_ACCEPTABLE,
-        );
+        throw new UnauthorizedException('User already exists');
       }
 
-      const password = await bcrypt.hash(signupUserInputDTO.password, 10);
+      const password = await bcrypt.hash(signupUserInputDTO.password, 12); // Increased hashing rounds
 
       const user = await this.userService.create({
         ...signupUserInputDTO,
@@ -80,10 +72,7 @@ export class AuthService {
         user,
       };
     } catch (err) {
-      throw new UnauthorizedException({
-        message: 'Unauthorized to signup',
-        err,
-      });
+      throw new UnauthorizedException('Unauthorized to signup', err.message);
     }
   }
 }
