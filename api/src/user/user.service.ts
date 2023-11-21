@@ -8,6 +8,7 @@ import { UnauthorizedException } from '@nestjs/common/exceptions';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserRepository } from './user.repository';
+import { APIQuery } from '../types/query.type';
 
 @Injectable()
 export class UserService {
@@ -28,9 +29,9 @@ export class UserService {
     }
   }
 
-  async findAll() {
+  async findAll(queries: APIQuery) {
     try {
-      return await this.userRepository.findAllUsers();
+      return await this.userRepository.findAllUsers(queries);
     } catch (err) {
       throw new NotFoundException(err);
     }
