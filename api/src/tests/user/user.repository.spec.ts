@@ -13,6 +13,7 @@ describe('UserRepository', () => {
 
   const mockDataSource = {
     createEntityManager: jest.fn(),
+    getCount: jest.fn(),
   };
 
   beforeAll(async () => {
@@ -74,7 +75,7 @@ describe('UserRepository', () => {
       getMany: jest.fn().mockResolvedValueOnce([mockUser]),
     } as any);
 
-    const result = await userRepository.findAllUsers();
+    const result = await userRepository.findAllUsers({ page: 1, limit: 10 });
 
     expect(result).toEqual([mockUser]);
   });

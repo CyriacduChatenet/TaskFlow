@@ -131,7 +131,10 @@ describe('UserService', () => {
   it('should find all users', async () => {
     mockUserRepository.findAllUsers.mockResolvedValue(['user1', 'user2']);
 
-    expect(await service.findAll()).toEqual(['user1', 'user2']);
+    expect(await service.findAll({ page: 1, limit: 10 })).toEqual([
+      'user1',
+      'user2',
+    ]);
   });
 
   it('should find user by ID', async () => {
