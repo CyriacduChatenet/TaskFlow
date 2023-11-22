@@ -1,11 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { JwtService } from '@nestjs/jwt';
+import { UnauthorizedException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 
 import { AuthService } from '../../auth/auth.service';
 import { UserService } from '../../user/user.service';
 import { User } from '../../user/entities/user.entity';
-import { UnauthorizedException } from '@nestjs/common';
 
 describe('AuthService', () => {
   let service: AuthService;
