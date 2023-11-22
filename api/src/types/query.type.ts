@@ -3,4 +3,5 @@ export type APIQuery = {
   limit?: number;
   createdAt?: string;
   email?: string;
+  title?: string;
 };
