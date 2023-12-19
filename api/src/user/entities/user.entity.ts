@@ -1,6 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 import { Timestamp } from '../../utils/timestamp.util';
+import { Task } from '../../task/entities/task.entity';
 
 @Entity()
 export class User extends Timestamp {
@@ -21,4 +22,7 @@ export class User extends Timestamp {
 
   @Column({ nullable: false, default: false })
   isVerified: boolean;
+
+  @OneToMany(() => Task, (task) => task.user)
+  tasks: Task[];
 }

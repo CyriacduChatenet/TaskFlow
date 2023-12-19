@@ -45,6 +45,7 @@ describe('UserController', () => {
         username: 'test1',
         roles: 'user',
         isVerified: false,
+        tasks: [],
       };
       jest
         .spyOn(userService, 'create')
@@ -77,6 +78,7 @@ describe('UserController', () => {
             username: 'test1',
             roles: 'user',
             isVerified: false,
+            tasks: [],
           },
           {
             createdAt: new Date('2023-11-22T08:23:50.680Z'),
@@ -88,6 +90,7 @@ describe('UserController', () => {
             username: 'test2',
             roles: 'user',
             isVerified: false,
+            tasks: [],
           },
         ],
       };
@@ -112,9 +115,10 @@ describe('UserController', () => {
         username: 'test2',
         roles: 'user',
         isVerified: false,
+        tasks: [],
       };
       jest
-        .spyOn(userService, 'findOneById')
+        .spyOn(userService, 'findUserById')
         .mockImplementation(() => Promise.resolve(result));
 
       expect(await userController.findOneById(id)).toBe(result);

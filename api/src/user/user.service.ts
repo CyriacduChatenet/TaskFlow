@@ -2,9 +2,8 @@ import {
   Injectable,
   NotFoundException,
   ConflictException,
+  UnauthorizedException,
 } from '@nestjs/common';
-import { UnauthorizedException } from '@nestjs/common/exceptions';
-
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserRepository } from './user.repository';
@@ -16,47 +15,58 @@ export class UserService {
 
   async create(createUserDto: CreateUserDto) {
     try {
-      const user = await this.findOneByEmail(createUserDto.email);
+      const existingUser = await this.findUserByEmail(createUserDto.email);
 
-      if (user) {
+      if (existingUser) {
         throw new ConflictException('Email already taken');
       }
 
-      const newUser = await this.userRepository.createUser(createUserDto);
-      return newUser;
-    } catch (err) {
-      throw new UnauthorizedException(err);
+      return this.userRepository.createUser(createUserDto);
+    } catch (error) {
+      throw new UnauthorizedException(error.message);
     }
   }
 
   async findAll(queries: APIQuery) {
     try {
-      return await this.userRepository.findAllUsers(queries);
-    } catch (err) {
-      throw new NotFoundException(err);
+      return this.userRepository.findAllUsers(queries);
+    } catch (error) {
+      throw new NotFoundException(error.message);
     }
   }
 
-  async findOneById(id: string) {
+  async findUserById(id: string) {
     try {
-      return await this.userRepository.findOneUserById(id);
-    } catch (err) {
-      throw new NotFoundException(err);
+      const user = await this.userRepository.findOneUserById(id);
+
+      if (!user) {
+        throw new NotFoundException(`User with ID ${id} not found`);
+      }
+
+      return user;
+    } catch (error) {
+      throw new NotFoundException(`User with ID ${id} not found`);
     }
   }
 
-  async findOneByEmail(email: string) {
+  async findUserByEmail(email: string) {
     try {
-      return await this.userRepository.findOneUserByEmail(email);
-    } catch (err) {
-      throw new NotFoundException(err);
+      const user = await this.userRepository.findOneUserByEmail(email);
+
+      if (!user) {
+        throw new NotFoundException(`User with email ${email} not found`);
+      }
+
+      return user;
+    } catch (error) {
+      throw new NotFoundException(`User with email ${email} not found`);
     }
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
     try {
-      const user = await this.findOneById(id);
-      const userEmail = await this.findOneByEmail(updateUserDto.email);
+      const user = await this.findUserById(id);
+      const userEmail = await this.findUserByEmail(updateUserDto.email);
 
       if (!user) {
         throw new NotFoundException('User not found');
@@ -66,23 +76,23 @@ export class UserService {
         throw new ConflictException('Email already taken');
       }
 
-      return await this.userRepository.updateUser(id, updateUserDto);
-    } catch (err) {
-      throw new UnauthorizedException(err);
+      return this.userRepository.updateUser(id, updateUserDto);
+    } catch (error) {
+      throw new UnauthorizedException(error.message);
     }
   }
 
   async remove(id: string) {
     try {
-      const user = await this.findOneById(id);
+      const user = await this.findUserById(id);
 
       if (!user) {
         throw new NotFoundException('User not found');
       }
 
-      return await this.userRepository.deleteUser(id);
-    } catch (err) {
-      throw new UnauthorizedException(err);
+      return this.userRepository.deleteUser(id);
+    } catch (error) {
+      throw new UnauthorizedException(error.message);
     }
   }
 }

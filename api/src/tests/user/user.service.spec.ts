@@ -34,12 +34,12 @@ describe('UserService', () => {
 
   it('should find user by email', async () => {
     mockUserRepository.findOneUserByEmail.mockResolvedValue('user');
-    expect(await service.findOneByEmail('test@test.com')).toBe('user');
+    expect(await service.findUserByEmail('test@test.com')).toBe('user');
   });
 
   it('should throw NotFoundException when user not found by email', async () => {
     mockUserRepository.findOneUserByEmail.mockRejectedValueOnce(null);
-    await expect(service.findOneByEmail('test@test.com')).rejects.toThrowError(
+    await expect(service.findUserByEmail('test@test.com')).rejects.toThrowError(
       NotFoundException,
     );
   });
@@ -140,7 +140,7 @@ describe('UserService', () => {
   it('should find user by ID', async () => {
     mockUserRepository.findOneUserById.mockResolvedValue('userById');
 
-    expect(await service.findOneById('1')).toBe('userById');
+    expect(await service.findUserById('1')).toBe('userById');
   });
 
   it('should remove user by ID', async () => {

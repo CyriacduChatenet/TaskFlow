@@ -14,7 +14,7 @@ export class AuthService {
   ) {}
 
   public async validateUser(email: string, password: string) {
-    const user = await this.userService.findOneByEmail(email);
+    const user = await this.userService.findUserByEmail(email);
 
     if (!user) {
       throw new UnauthorizedException('Invalid credentials');
@@ -31,7 +31,7 @@ export class AuthService {
 
   public async signin(user: SigninDto) {
     try {
-      const findUser = await this.userService.findOneByEmail(user.email);
+      const findUser = await this.userService.findUserByEmail(user.email);
 
       if (!findUser) {
         throw new UnauthorizedException('User not found');
@@ -53,7 +53,7 @@ export class AuthService {
 
   public async signup(signupUserInputDTO: CreateUserDto) {
     try {
-      const userInDB = await this.userService.findOneByEmail(
+      const userInDB = await this.userService.findUserByEmail(
         signupUserInputDTO.email,
       );
 
