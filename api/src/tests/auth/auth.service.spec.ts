@@ -58,6 +58,7 @@ describe('AuthService', () => {
         roles: 'user',
         isVerified: false,
         tasks: [],
+        teams: [],
       };
 
       const bcryptCompareSpy = jest
@@ -88,6 +89,7 @@ describe('AuthService', () => {
         roles: 'user',
         isVerified: false,
         tasks: [],
+        teams: [],
       };
 
       jest.spyOn(userService, 'findUserByEmail').mockResolvedValue(null);
@@ -109,6 +111,7 @@ describe('AuthService', () => {
         roles: 'user',
         isVerified: false,
         tasks: [],
+        teams: [],
       };
 
       jest
@@ -142,6 +145,7 @@ describe('AuthService', () => {
         roles: 'user',
         isVerified: false,
         tasks: [],
+        teams: [],
       };
 
       jest.spyOn(userService, 'findUserByEmail').mockResolvedValue(user);
