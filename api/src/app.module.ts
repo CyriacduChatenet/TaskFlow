@@ -7,6 +7,7 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { TaskModule } from './task/task.module';
+import { TeamModule } from './team/team.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { TaskModule } from './task/task.module';
     UserModule,
     AuthModule,
     TaskModule,
+    TeamModule,
   ],
   controllers: [AppController],
   providers: [AppService],
