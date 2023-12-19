@@ -3,42 +3,140 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { TaskController } from '../../task/task.controller';
 import { TaskService } from '../../task/task.service';
 import { CreateTaskDto } from '../../task/dto/create-task.dto';
+import { UpdateTaskDto } from '../../task/dto/update-task.dto';
+import { Task } from '../../task/entities/task.entity';
+import { TaskRepository } from '../../task/task.repository';
 
 describe('TaskController', () => {
-  let controller: TaskController;
-  let service: TaskService;
+  let taskController: TaskController;
+  let taskService: TaskService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [TaskController],
       providers: [
+        TaskService,
         {
-          provide: TaskService,
-          useValue: {
-            create: jest.fn().mockResolvedValue('mockTask'),
-          },
+          provide: TaskRepository,
+          useValue: {}, // Provide your mock here
         },
       ],
     }).compile();
 
-    controller = module.get<TaskController>(TaskController);
-    service = module.get<TaskService>(TaskService);
+    taskController = module.get<TaskController>(TaskController);
+    taskService = module.get<TaskService>(TaskService);
   });
 
   it('should be defined', () => {
-    expect(controller).toBeDefined();
+    expect(taskController).toBeDefined();
   });
 
   describe('create', () => {
-    it('should return a task', async () => {
-      const dto: CreateTaskDto = {
-        title: 'mockTitle',
-        description: 'mockDescription',
+    it('should create a task', async () => {
+      const result: Task = {
+        id: '',
+        title: '',
+        description: '',
+        user: {
+          id: '',
+          email: '',
+          password: '',
+          username: '',
+          roles: '',
+          isVerified: false,
+          tasks: [],
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        createdAt: new Date(),
+        updatedAt: new Date(),
       };
-      expect(await controller.create(dto)).toBe('mockTask');
-      expect(service.create).toHaveBeenCalledWith(dto);
+      jest
+        .spyOn(taskService, 'create')
+        .mockImplementation(() => Promise.resolve(result));
+
+      expect(await taskController.create(new CreateTaskDto())).toBe(result);
     });
   });
 
-  // Add more tests for other methods here
+  describe('findAll', () => {
+    it('should return an array of tasks', async () => {
+      const result: {
+        page: number;
+        limit: number;
+        count: number;
+        data: Task[];
+      } = {
+        page: 1,
+        limit: 10,
+        count: 0,
+        data: [],
+      };
+      jest
+        .spyOn(taskService, 'findAll')
+        .mockImplementation(() => Promise.resolve(result));
+
+      expect(await taskController.findAll({ page: 1, limit: 10 })).toBe(result);
+    });
+  });
+
+  describe('findOne', () => {
+    it('should return a task', async () => {
+      const result: Task = {
+        id: '',
+        title: '',
+        description: '',
+        user: {
+          id: '',
+          email: '',
+          password: '',
+          username: '',
+          roles: '',
+          isVerified: false,
+          tasks: [],
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+      jest
+        .spyOn(taskService, 'findOneById')
+        .mockImplementation(() => Promise.resolve(result));
+
+      expect(await taskController.findOneById('1')).toBe(result);
+    });
+  });
+
+  describe('update', () => {
+    it('should update a task', async () => {
+      const result = {
+        generatedMaps: [],
+        raw: [],
+        affected: 1,
+      };
+      jest
+        .spyOn(taskService, 'update')
+        .mockImplementation(() => Promise.resolve(result));
+
+      expect(await taskController.update('1', new UpdateTaskDto())).toBe(
+        result,
+      );
+    });
+  });
+
+  describe('remove', () => {
+    it('should remove a task', async () => {
+      const result = {
+        generatedMaps: [],
+        raw: [],
+        affected: 1,
+      };
+      jest
+        .spyOn(taskService, 'remove')
+        .mockImplementation(() => Promise.resolve(result));
+
+      expect(await taskController.remove('1')).toBe(result);
+    });
+  });
 });

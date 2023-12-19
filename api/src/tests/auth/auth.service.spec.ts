@@ -19,7 +19,7 @@ describe('AuthService', () => {
         {
           provide: UserService,
           useValue: {
-            findOneByEmail: jest.fn(),
+            findUserByEmail: jest.fn(),
           }, // provide a mock implementation of UserService or an actual instance
         },
         {
@@ -57,13 +57,14 @@ describe('AuthService', () => {
         username: 'test1',
         roles: 'user',
         isVerified: false,
+        tasks: [],
       };
 
       const bcryptCompareSpy = jest
         .spyOn(bcrypt, 'compare')
         .mockImplementation(() => Promise.resolve(true));
-      jest.spyOn(userService, 'findOneByEmail').mockResolvedValue(user);
-      jest.spyOn(userService, 'findOneByEmail').mockResolvedValue(user);
+      jest.spyOn(userService, 'findUserByEmail').mockResolvedValue(user);
+      jest.spyOn(userService, 'findUserByEmail').mockResolvedValue(user);
 
       const result = await service.validateUser(user.email, user.password);
       const expectedUser = { ...user };
@@ -86,9 +87,10 @@ describe('AuthService', () => {
         username: 'test1',
         roles: 'user',
         isVerified: false,
+        tasks: [],
       };
 
-      jest.spyOn(userService, 'findOneByEmail').mockResolvedValue(null);
+      jest.spyOn(userService, 'findUserByEmail').mockResolvedValue(null);
 
       await expect(
         service.validateUser(user.email, user.password),
@@ -106,12 +108,13 @@ describe('AuthService', () => {
         username: 'test1',
         roles: 'user',
         isVerified: false,
+        tasks: [],
       };
 
       jest
         .spyOn(bcrypt, 'compare')
         .mockImplementation(() => Promise.resolve(false));
-      jest.spyOn(userService, 'findOneByEmail').mockResolvedValue(user);
+      jest.spyOn(userService, 'findUserByEmail').mockResolvedValue(user);
 
       await expect(
         service.validateUser(user.email, user.password),
@@ -121,7 +124,7 @@ describe('AuthService', () => {
 
   describe('signin', () => {
     it('should throw an error if no user is found', async () => {
-      jest.spyOn(userService, 'findOneByEmail').mockResolvedValue(null);
+      jest.spyOn(userService, 'findUserByEmail').mockResolvedValue(null);
       await expect(
         service.signin({ email: 'test@test.com', password: 'password' }),
       ).rejects.toThrow();
@@ -138,9 +141,10 @@ describe('AuthService', () => {
         username: 'test1',
         roles: 'user',
         isVerified: false,
+        tasks: [],
       };
 
-      jest.spyOn(userService, 'findOneByEmail').mockResolvedValue(user);
+      jest.spyOn(userService, 'findUserByEmail').mockResolvedValue(user);
       jest
         .spyOn(jwtService, 'sign')
         .mockReturnValue(

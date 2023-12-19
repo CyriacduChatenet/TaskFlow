@@ -63,6 +63,7 @@ describe('AuthController', () => {
       username: 'test3',
       roles: 'user',
       isVerified: false,
+      tasks: [],
     };
     jest
       .spyOn(authService, 'signup')
