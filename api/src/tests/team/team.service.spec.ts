@@ -4,7 +4,6 @@ import { TeamService } from '../../team/team.service';
 import { TeamRepository } from '../../team/team.repository';
 import { CreateTeamDto } from '../../team/dto/create-team.dto';
 import { UpdateTeamDto } from '../../team/dto/update-team.dto';
-import { Team } from '../../team/entities/team.entity';
 
 describe('TeamService', () => {
   let service: TeamService;
@@ -46,13 +45,25 @@ describe('TeamService', () => {
 
   it('should find one team by id', async () => {
     const id = 'some-id';
-    jest.spyOn(repo, 'findOneTeamById').mockResolvedValueOnce({} as Team);
+    jest.spyOn(repo, 'findOneTeamById').mockResolvedValueOnce({
+      id: '',
+      name: '',
+      users: [],
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
     await expect(service.findOneById(id)).resolves.not.toThrow();
   });
 
   it('should find one team by name', async () => {
     const name = 'some-name';
-    jest.spyOn(repo, 'findOneTeamByName').mockResolvedValueOnce({} as Team);
+    jest.spyOn(repo, 'findOneTeamByName').mockResolvedValueOnce({
+      id: '',
+      name: '',
+      users: [],
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
     await expect(service.findOneByName(name)).resolves.not.toThrow();
   });
 
