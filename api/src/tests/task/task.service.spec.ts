@@ -52,6 +52,7 @@ describe('TaskService', () => {
           tasks: [],
           createdAt: new Date(),
           updatedAt: new Date(),
+          teams: [],
         },
         createdAt: new Date(),
         updatedAt: new Date(),

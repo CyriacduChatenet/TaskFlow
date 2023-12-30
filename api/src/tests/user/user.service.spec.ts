@@ -104,7 +104,7 @@ describe('UserService', () => {
     mockUserRepository.createUser.mockResolvedValue('createdUser');
 
     const createUserDto = {
-      email: 'test@test.com',
+      email: 'test1@test.com',
       password: 'root',
       username: 'test',
       roles: 'user',
@@ -117,7 +117,7 @@ describe('UserService', () => {
     mockUserRepository.findOneUserByEmail.mockResolvedValue('existingUser');
 
     const createUserDto = {
-      email: 'test@test.com',
+      email: 'test1@test.com',
       password: 'root',
       username: 'test',
       roles: 'user',
@@ -146,7 +146,7 @@ describe('UserService', () => {
   it('should remove user by ID', async () => {
     mockUserRepository.findOneUserById.mockResolvedValue({
       id: 'userToRemoveId',
-      email: 'test@test.com',
+      email: 'test1@test.com',
       password: 'root',
       username: 'test',
       roles: 'user',

@@ -1,7 +1,15 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 import { Timestamp } from '../../utils/timestamp.util';
 import { Task } from '../../task/entities/task.entity';
+import { Team } from '../../team/entities/team.entity';
 
 @Entity()
 export class User extends Timestamp {
@@ -25,4 +33,8 @@ export class User extends Timestamp {
 
   @OneToMany(() => Task, (task) => task.user)
   tasks: Task[];
+
+  @ManyToMany(() => Team, (team) => team.users)
+  @JoinTable()
+  teams: Team[];
 }

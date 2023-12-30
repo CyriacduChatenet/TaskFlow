@@ -64,6 +64,7 @@ describe('AuthController', () => {
       roles: 'user',
       isVerified: false,
       tasks: [],
+      teams: [],
     };
     jest
       .spyOn(authService, 'signup')
