@@ -8,6 +8,7 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { TaskModule } from './task/task.module';
 import { TeamModule } from './team/team.module';
+import { TemplateModule } from './template/template.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { TeamModule } from './team/team.module';
     AuthModule,
     TaskModule,
     TeamModule,
+    TemplateModule,
   ],
   controllers: [AppController],
   providers: [AppService],

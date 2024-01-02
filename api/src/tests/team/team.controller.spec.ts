@@ -64,6 +64,7 @@ describe('TeamController', () => {
       users: [],
       createdAt: new Date(),
       updatedAt: new Date(),
+      templates: [],
     };
     jest.spyOn(service, 'findOneById').mockResolvedValue(result);
 
@@ -78,6 +79,7 @@ describe('TeamController', () => {
       users: [],
       createdAt: new Date(),
       updatedAt: new Date(),
+      templates: [],
     };
     jest.spyOn(service, 'findOneByName').mockResolvedValue(result);
 

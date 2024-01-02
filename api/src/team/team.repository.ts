@@ -23,10 +23,9 @@ export class TeamRepository extends Repository<Team> {
     page = page ? +page : 1;
     limit = limit ? +limit : 10;
 
-    const query = this.createQueryBuilder('team').leftJoinAndSelect(
-      'team.users',
-      'users',
-    );
+    const query = this.createQueryBuilder('team')
+      .leftJoinAndSelect('team.users', 'users')
+      .leftJoinAndSelect('team.templates', 'templates');
 
     if (name) query.andWhere('team.name = :name', { name });
 
@@ -44,6 +43,7 @@ export class TeamRepository extends Repository<Team> {
   async findOneTeamById(id: string): Promise<Team> {
     return this.createQueryBuilder('team')
       .leftJoinAndSelect('team.users', 'users')
+      .leftJoinAndSelect('team.templates', 'templates')
       .where('team.id = :id', { id })
       .getOne();
   }

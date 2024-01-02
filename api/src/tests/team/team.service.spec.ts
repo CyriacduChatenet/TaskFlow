@@ -51,6 +51,7 @@ describe('TeamService', () => {
       users: [],
       createdAt: new Date(),
       updatedAt: new Date(),
+      templates: [],
     });
     await expect(service.findOneById(id)).resolves.not.toThrow();
   });
@@ -63,6 +64,7 @@ describe('TeamService', () => {
       users: [],
       createdAt: new Date(),
       updatedAt: new Date(),
+      templates: [],
     });
     await expect(service.findOneByName(name)).resolves.not.toThrow();
   });
