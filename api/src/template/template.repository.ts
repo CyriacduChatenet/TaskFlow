@@ -25,10 +25,9 @@ export class TemplateRepository extends Repository<Template> {
     page = page ? +page : 1;
     limit = limit ? +limit : 10;
 
-    const query = this.createQueryBuilder('template').leftJoinAndSelect(
-      'template.teams',
-      'teams',
-    );
+    const query = this.createQueryBuilder('template')
+      .leftJoinAndSelect('template.teams', 'teams')
+      .leftJoinAndSelect('template.boards', 'boards');
 
     if (name) query.andWhere('template.name = :name', { name });
 
@@ -46,6 +45,7 @@ export class TemplateRepository extends Repository<Template> {
   async findOneTemplateById(id: string): Promise<Template> {
     return this.createQueryBuilder('template')
       .leftJoinAndSelect('template.teams', 'teams')
+      .leftJoinAndSelect('template.boards', 'boards')
       .where('template.id = :id', { id })
       .getOne();
   }
@@ -53,6 +53,7 @@ export class TemplateRepository extends Repository<Template> {
   async findOneTemplateByName(name: string): Promise<Template> {
     return this.createQueryBuilder('template')
       .leftJoinAndSelect('template.teams', 'teams')
+      .leftJoinAndSelect('template.boards', 'boards')
       .where('template.name = :name', { name })
       .getOne();
   }
