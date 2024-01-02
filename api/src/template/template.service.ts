@@ -29,9 +29,17 @@ export class TemplateService {
     }
   }
 
-  findOne(id: string) {
+  findOneById(id: string) {
     try {
       return this.templateRepository.findOneTemplateById(id);
+    } catch (error) {
+      throw new NotFoundException(error);
+    }
+  }
+
+  async findOneByName(name: string) {
+    try {
+      return await this.templateRepository.findOneTemplateByName(name);
     } catch (error) {
       throw new NotFoundException(error);
     }

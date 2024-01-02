@@ -28,9 +28,14 @@ export class TemplateController {
     return this.templateService.findAll(queries);
   }
 
-  @Get(':id')
+  @Get('id/:id')
   findOne(@Param('id') id: string) {
-    return this.templateService.findOne(id);
+    return this.templateService.findOneById(id);
+  }
+
+  @Get('name/:name')
+  findOneByName(@Param('name') name: string) {
+    return this.templateService.findOneByName(name);
   }
 
   @Patch(':id')
