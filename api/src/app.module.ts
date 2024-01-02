@@ -9,6 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { TaskModule } from './task/task.module';
 import { TeamModule } from './team/team.module';
 import { TemplateModule } from './template/template.module';
+import { BoardModule } from './board/board.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { TemplateModule } from './template/template.module';
     TaskModule,
     TeamModule,
     TemplateModule,
+    BoardModule,
   ],
   controllers: [AppController],
   providers: [AppService],

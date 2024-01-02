@@ -36,6 +36,7 @@ describe('TemplateController', () => {
       name: '',
       id: '',
       teams: [],
+      boards: [],
       createdAt: new Date(),
       updatedAt: new Date(),
     };
