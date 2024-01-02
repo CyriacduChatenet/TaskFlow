@@ -38,6 +38,7 @@ describe('TemplateService', () => {
         teams: [],
         createdAt: new Date(),
         updatedAt: new Date(),
+        boards: [],
       };
       const spy = jest
         .spyOn(repo, 'createTemplate')
