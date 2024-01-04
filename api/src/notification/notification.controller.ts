@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 
 import { NotificationService } from './notification.service';
@@ -14,12 +15,17 @@ import { CreateNotificationDto } from './dto/create-notification.dto';
 import { UpdateNotificationDto } from './dto/update-notification.dto';
 import { NotificationType } from '../types/notification.type';
 import { APIQuery } from '../types/query.type';
+import { JwtAuthGuard } from '../auth/guards/jwt.guard';
+import { Roles } from '../auth/decorators/role.decorator';
+import { Role } from '../auth/enums/role.enum';
 
 @Controller('notification')
 export class NotificationController {
   constructor(private readonly notificationService: NotificationService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard)
+  @Roles(Role.Admin, Role.User)
   create(@Body() createNotificationDto: CreateNotificationDto) {
     return this.notificationService.create(createNotificationDto);
   }
@@ -40,6 +46,8 @@ export class NotificationController {
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard)
+  @Roles(Role.Admin, Role.User)
   update(
     @Param('id') id: string,
     @Body() updateNotificationDto: UpdateNotificationDto,
@@ -48,6 +56,8 @@ export class NotificationController {
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
+  @Roles(Role.Admin, Role.User)
   remove(@Param('id') id: string) {
     return this.notificationService.remove(id);
   }
