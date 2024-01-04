@@ -10,6 +10,7 @@ import { TaskModule } from './task/task.module';
 import { TeamModule } from './team/team.module';
 import { TemplateModule } from './template/template.module';
 import { BoardModule } from './board/board.module';
+import { NotificationModule } from './notification/notification.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { BoardModule } from './board/board.module';
     TeamModule,
     TemplateModule,
     BoardModule,
+    NotificationModule,
   ],
   controllers: [AppController],
   providers: [AppService],

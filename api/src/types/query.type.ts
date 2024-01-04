@@ -5,4 +5,5 @@ export type APIQuery = {
   email?: string;
   title?: string;
   name?: string;
+  type?: string;
 };
