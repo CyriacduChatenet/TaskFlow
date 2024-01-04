@@ -26,7 +26,7 @@ export class UserRepository extends Repository<User> {
 
     const query = this.createQueryBuilder('user')
       .leftJoinAndSelect('user.tasks', 'tasks')
-      .leftJoinAndSelect('user.notificaions', 'notifications')
+      .leftJoinAndSelect('user.notifications', 'notifications')
       .leftJoinAndSelect('user.teams', 'teams');
 
     if (email) query.andWhere('user.email = :email', { email });
@@ -47,7 +47,7 @@ export class UserRepository extends Repository<User> {
   async findOneUserById(id: string): Promise<User> {
     return this.createQueryBuilder('user')
       .leftJoinAndSelect('user.tasks', 'tasks')
-      .leftJoinAndSelect('user.notificaions', 'notifications')
+      .leftJoinAndSelect('user.notifications', 'notifications')
       .leftJoinAndSelect('user.teams', 'teams')
       .where('user.id = :id', { id })
       .getOne();
@@ -56,7 +56,7 @@ export class UserRepository extends Repository<User> {
   async findOneUserByEmail(email: string): Promise<User> {
     return this.createQueryBuilder('user')
       .leftJoinAndSelect('user.tasks', 'tasks')
-      .leftJoinAndSelect('user.notificaions', 'notifications')
+      .leftJoinAndSelect('user.notifications', 'notifications')
       .leftJoinAndSelect('user.teams', 'teams')
       .where('user.email = :email', { email })
       .getOne();
