@@ -13,6 +13,7 @@
     "clear-test-cache": "jest --clearCache"
   },
   "dependencies": {
+    "axios": "^1.6.4",
     "jest-dom": "link:@types/@testing-library/jest-dom",
     "jest-environment-jsdom": "^29.7.0",
     "react": "^18.2.0",
@@ -21,6 +22,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^6.1.4",
     "@testing-library/react": "^14.1.2",
+    "@types/axios": "^0.14.0",
     "@types/jest": "^29.5.8",
     "@types/node": "^20.9.2",
     "@types/react": "^18.2.15",

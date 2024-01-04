@@ -1,11 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
+import axiosInstance from "./utils/api.util";
 
 function App() {
   const [count, setCount] = useState(0);
+  const [data, setData] = useState('');
+
+  const fetchData = async () => {
+    const res = await axiosInstance.get("/");
+    console.log(res.data);
+    setData(res.data);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -25,6 +37,9 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
+      </div>
+      <div>
+        <p>{data.length > 0 ? data : 'Loading'} from API</p>
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
