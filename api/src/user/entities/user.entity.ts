@@ -10,6 +10,7 @@ import {
 import { Timestamp } from '../../utils/timestamp.util';
 import { Task } from '../../task/entities/task.entity';
 import { Team } from '../../team/entities/team.entity';
+import { Notification } from '../../notification/entities/notification.entity';
 
 @Entity()
 export class User extends Timestamp {
@@ -37,4 +38,7 @@ export class User extends Timestamp {
   @ManyToMany(() => Team, (team) => team.users)
   @JoinTable()
   teams: Team[];
+
+  @OneToMany(() => Notification, (notification) => notification.user)
+  notifications: Notification[];
 }

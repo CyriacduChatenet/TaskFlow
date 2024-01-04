@@ -47,6 +47,7 @@ describe('UserController', () => {
         isVerified: false,
         tasks: [],
         teams: [],
+        notifications: [],
       };
       jest
         .spyOn(userService, 'create')
@@ -81,6 +82,7 @@ describe('UserController', () => {
             isVerified: false,
             tasks: [],
             teams: [],
+            notifications: [],
           },
           {
             createdAt: new Date('2023-11-22T08:23:50.680Z'),
@@ -94,6 +96,7 @@ describe('UserController', () => {
             isVerified: false,
             tasks: [],
             teams: [],
+            notifications: [],
           },
         ],
       };
@@ -120,6 +123,7 @@ describe('UserController', () => {
         isVerified: false,
         tasks: [],
         teams: [],
+        notifications: [],
       };
       jest
         .spyOn(userService, 'findUserById')
