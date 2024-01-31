@@ -1,6 +1,6 @@
 import { render, fireEvent } from "@testing-library/react";
 
-import App from "../App";
+import App from "../app/App";
 
 test("count starts at 0", () => {
   const { getByText } = render(<App />);
