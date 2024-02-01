@@ -19,7 +19,7 @@ jobs:
         uses: actions/setup-node@v1
         if: steps.cache.outputs.cache-hit != 'true'
         with:
-          node-version: 20.8.1
+          node-version: 20
       - name: install dependencies
         run: npm i
 
